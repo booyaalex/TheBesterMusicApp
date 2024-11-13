@@ -33,6 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxInterop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WMPLib.1.0.0\lib\AxInterop.WMPLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WMPLib.1.0.0\lib\Interop.WMPLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
@@ -87,6 +94,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="rect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Backward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Repeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\Shuffle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
