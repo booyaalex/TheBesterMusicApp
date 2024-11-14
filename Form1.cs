@@ -14,19 +14,22 @@ using TagLib.Aac;
 using WMPLib;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace TheBesterMusicApp
 {
     public partial class Form1 : Form
     {
+        int current_page = 0;
         List<Track> tracks = new List<Track>();
         Track[] displayed_tracks = new Track[0];
         Track[] track_queue = new Track[0];
         int current_track = 0;
-        int current_page = 0;
         string selected_album = "";
+        string selected_artist = "";
 
         WindowsMediaPlayer music_player = new WindowsMediaPlayer();
+        int current_mode = 0; //0 Normal, 1 Shuffle, 2 Repeat;
 
         public Form1()
         {
@@ -80,9 +83,10 @@ namespace TheBesterMusicApp
                 current_page = 1;
                 DisplayAlbums();
             }
-            else if (tab_Page_Select.SelectedTab.Name == "tp_Playlists")
+            else if (tab_Page_Select.SelectedTab.Name == "tp_Artists")
             {
                 current_page = 2;
+                DisplayArtists();
             }
             DisplayMusic();
         }
@@ -113,9 +117,29 @@ namespace TheBesterMusicApp
                 }
                 Array.Resize(ref displayed_tracks, count);
             }
+            else if (current_page == 2)
+            {
+                track_list = lv_Artists_Track_List;
+                displayed_tracks = new Track[tracks.Count];
+                int count = 0;
+                for (int i = 0; i < tracks.Count; i++)
+                {
+                    if (tracks[i].artist == selected_artist)
+                    {
+                        displayed_tracks[count] = tracks[i];
+                        count++;
+                    }
+                }
+                Array.Resize(ref displayed_tracks, count);
+            }
 
             displayed_tracks = SortTracks(displayed_tracks);
-            track_queue = displayed_tracks;
+
+            if (track_queue.Length == 0)
+            {
+                track_queue = displayed_tracks;
+            }  
+
             track_list.Items.Clear();
             for (int i = 0; i < displayed_tracks.Length; i++)
             {
@@ -174,6 +198,50 @@ namespace TheBesterMusicApp
                 DisplayMusic();
             }
         }
+        private void DisplayArtists()
+        {
+            List<Artist> artists = new List<Artist>(); //This one is for displaying albums.
+            List<string> artist_list = new List<string>(); //This one is for checkig if an album has already been added.
+            Artist artist;
+            ListViewItem item;
+            if (selected_artist == "")
+            {
+                selected_artist = tracks[0].artist;
+            }
+
+            foreach (Track track in tracks)
+            {
+                if (!artist_list.Contains(track.artist))
+                {
+                    artist_list.Add(track.artist);
+                    artist = new Artist()
+                    {
+                        name = track.artist,
+                        track_count = track.track_count,
+                    };
+                    artists.Add(artist);
+                }
+            }
+
+            lv_Artists_Artist_List.Clear();
+            for (int i = 0; i < artists.Count; i++)
+            {
+                artist = artists[i];
+                item = new ListViewItem();
+                item.Text = artist.name;
+                item.Tag = artist;
+                this.lv_Artists_Artist_List.Items.Add(item);
+            }
+        }
+        private void lv_Artists_Artist_List_DoubleClick(object sender, EventArgs e)
+        {
+            if (lv_Artists_Artist_List.SelectedItems.Count > 0)
+            {
+                Artist artist = (Artist)lv_Artists_Artist_List.SelectedItems[0].Tag;
+                selected_artist = artist.name;
+                DisplayMusic();
+            }
+        }
         private static Track[] SortTracks(Track[] tracks)
         {
             //Artist => Year => Album => Track No
@@ -185,12 +253,15 @@ namespace TheBesterMusicApp
          */
         private void PlayTrack(Track track)
         {
+
             tmr_Track_Timer.Stop();
 
             music_player.URL = track.path;
             tmr_Track_Timer.Enabled = true;
             tmr_Track_Timer.Tick += new EventHandler(UpdateTime);
             tmr_Track_Timer.Interval = 1000;
+
+            btn_Control_Play_Button.BackgroundImage = Properties.Resources.Pause;
 
             music_player.controls.play();
             tmr_Track_Timer.Start();
@@ -200,6 +271,21 @@ namespace TheBesterMusicApp
         {
             lbl_Control_Track_Duration.Text = $"{ConvertToTimestamp(music_player.controls.currentPosition)} / {ConvertToTimestamp(music_player.currentMedia.duration)}";
             tkb_Control_Time_Bar.Value = Convert.ToInt32(music_player.controls.currentPosition / music_player.currentMedia.duration * 100);
+            Console.WriteLine(music_player.playState.ToString());
+
+            if (music_player.playState.ToString() == "wmppsStopped")
+            {
+                if (current_mode != 2)
+                {
+                    current_track++;
+                    if (current_track > track_queue.Length - 1)
+                    {
+                        current_track = 0;
+                    }
+                }
+                PlayTrack(track_queue[current_track]);
+                DisplayTrackOnControl(track_queue[current_track]);
+            }
         }
         private void DisplayTrackOnControl(Track track)
         {
@@ -215,9 +301,12 @@ namespace TheBesterMusicApp
             ListView listview = sender as ListView;
             if (listview.SelectedItems.Count > 0)
             {
-                PlayTrack((Track)listview.SelectedItems[0].Tag);
+                track_queue = displayed_tracks;
+                ChangeMode();
+
                 current_track = Array.IndexOf(track_queue, (Track)listview.SelectedItems[0].Tag);
-                DisplayTrackOnControl((Track)listview.SelectedItems[0].Tag);
+                PlayTrack(track_queue[current_track]);
+                DisplayTrackOnControl(track_queue[current_track]);
             }
         }
         private static string ConvertToTimestamp(double seconds)
@@ -229,7 +318,7 @@ namespace TheBesterMusicApp
         /*
          * Controlling Music 
          */
-        private void PlayToggle()
+        private void btn_Control_Play_Button_Click(object sender, EventArgs e)
         {
             if (music_player.playState.ToString() == "wmppsPlaying")
             {
@@ -244,27 +333,72 @@ namespace TheBesterMusicApp
                 music_player.controls.play();
             }
         }
-        private void btn_Control_Play_Button_Click(object sender, EventArgs e)
-        {
-            PlayToggle();
-        }
 
         private void btn_Control_Previous_Button_Click(object sender, EventArgs e)
         {
-            current_track--;
-            Console.WriteLine(current_track);
-            if (current_track < 0)
+            if (current_mode != 2)
             {
-                current_track = track_queue.Length - 1;
-            } 
-            Console.WriteLine(current_track);
+                current_track--;
+                if (current_track < 0)
+                {
+                    current_track = track_queue.Length - 1;
+                }
+            }
+            else
+            {
+                Console.WriteLine(current_track);
+            }
             PlayTrack(track_queue[current_track]);
             DisplayTrackOnControl(track_queue[current_track]);
         }
-
+        private void btn_Control_Next_Button_Click(object sender, EventArgs e)
+        {
+            if (current_mode != 2)
+            {
+                current_track++;
+                if (current_track > track_queue.Length - 1)
+                {
+                    current_track = 0;
+                }
+            }
+            PlayTrack(track_queue[current_track]);
+            DisplayTrackOnControl(track_queue[current_track]);
+        }
         private void tkb_Control_Time_Bar_Scroll(object sender, EventArgs e)
         {
             music_player.controls.currentPosition = Convert.ToDouble(tkb_Control_Time_Bar.Value * music_player.currentMedia.duration / 100);
+        }
+
+        private void btn_Control_Mode_Change_Click(object sender, EventArgs e)
+        {
+            if (current_mode == 2)
+            {
+                current_mode = 0;
+                btn_Control_Mode_Change.BackgroundImage = Properties.Resources.Circle;
+            }
+            else if (current_mode == 0)
+            {
+                current_mode = 1;
+                btn_Control_Mode_Change.BackgroundImage = Properties.Resources.Shuffle;
+            }
+            else
+            {
+                current_mode = 2;
+                btn_Control_Mode_Change.BackgroundImage = Properties.Resources.Repeat;
+            }
+            ChangeMode();
+        }
+        private void ChangeMode()
+        {
+            if (current_mode == 1)
+            {
+                Random rng = new Random();
+                track_queue = track_queue.OrderBy(track => rng.Next()).ToArray();
+            }
+            else
+            {
+                track_queue = SortTracks(track_queue);
+            }
         }
     }
     struct Track
@@ -283,6 +417,11 @@ namespace TheBesterMusicApp
     {
         public string name;
         public System.Drawing.Image image;
+        public int track_count;
+    }
+    struct Artist
+    {
+        public string name;
         public int track_count;
     }
 }

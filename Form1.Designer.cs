@@ -47,6 +47,14 @@
             this.Albums_Album = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Albums_Artist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Albums_Length = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tp_Artists = new System.Windows.Forms.TabPage();
+            this.lv_Artists_Artist_List = new System.Windows.Forms.ListView();
+            this.lv_Artists_Track_List = new System.Windows.Forms.ListView();
+            this.Artists_No = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Artists_Track = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Artists_Album = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Artists_Artist = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Artists_Length = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tp_Playlists = new System.Windows.Forms.TabPage();
             this.pnl_Song_Control = new System.Windows.Forms.Panel();
             this.btn_Control_Mode_Change = new System.Windows.Forms.Button();
@@ -64,6 +72,7 @@
             this.tp_Tracks.SuspendLayout();
             this.tp_Albums.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tp_Artists.SuspendLayout();
             this.pnl_Song_Control.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkb_Control_Time_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Control_Album_Cover)).BeginInit();
@@ -76,6 +85,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tab_Page_Select.Controls.Add(this.tp_Tracks);
             this.tab_Page_Select.Controls.Add(this.tp_Albums);
+            this.tab_Page_Select.Controls.Add(this.tp_Artists);
             this.tab_Page_Select.Controls.Add(this.tp_Playlists);
             this.tab_Page_Select.Cursor = System.Windows.Forms.Cursors.Default;
             this.tab_Page_Select.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -242,7 +252,85 @@
             // Albums_Length
             // 
             this.Albums_Length.Text = "Length";
-            this.Albums_Length.Width = 61;
+            this.Albums_Length.Width = 75;
+            // 
+            // tp_Artists
+            // 
+            this.tp_Artists.BackColor = System.Drawing.Color.LightBlue;
+            this.tp_Artists.Controls.Add(this.lv_Artists_Artist_List);
+            this.tp_Artists.Controls.Add(this.lv_Artists_Track_List);
+            this.tp_Artists.Location = new System.Drawing.Point(4, 26);
+            this.tp_Artists.Name = "tp_Artists";
+            this.tp_Artists.Size = new System.Drawing.Size(850, 311);
+            this.tp_Artists.TabIndex = 3;
+            this.tp_Artists.Text = "Artists";
+            // 
+            // lv_Artists_Artist_List
+            // 
+            this.lv_Artists_Artist_List.AutoArrange = false;
+            this.lv_Artists_Artist_List.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.lv_Artists_Artist_List.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lv_Artists_Artist_List.FullRowSelect = true;
+            this.lv_Artists_Artist_List.HideSelection = false;
+            this.lv_Artists_Artist_List.Location = new System.Drawing.Point(7, 6);
+            this.lv_Artists_Artist_List.Name = "lv_Artists_Artist_List";
+            this.lv_Artists_Artist_List.Size = new System.Drawing.Size(174, 299);
+            this.lv_Artists_Artist_List.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.lv_Artists_Artist_List.TabIndex = 5;
+            this.lv_Artists_Artist_List.UseCompatibleStateImageBehavior = false;
+            this.lv_Artists_Artist_List.View = System.Windows.Forms.View.Tile;
+            this.lv_Artists_Artist_List.DoubleClick += new System.EventHandler(this.lv_Artists_Artist_List_DoubleClick);
+            // 
+            // lv_Artists_Track_List
+            // 
+            this.lv_Artists_Track_List.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lv_Artists_Track_List.BackColor = System.Drawing.Color.LightBlue;
+            this.lv_Artists_Track_List.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lv_Artists_Track_List.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Artists_No,
+            this.Artists_Track,
+            this.Artists_Album,
+            this.Artists_Artist,
+            this.Artists_Length});
+            this.lv_Artists_Track_List.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lv_Artists_Track_List.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.lv_Artists_Track_List.FullRowSelect = true;
+            this.lv_Artists_Track_List.HideSelection = false;
+            this.lv_Artists_Track_List.Location = new System.Drawing.Point(187, 6);
+            this.lv_Artists_Track_List.MultiSelect = false;
+            this.lv_Artists_Track_List.Name = "lv_Artists_Track_List";
+            this.lv_Artists_Track_List.Size = new System.Drawing.Size(657, 299);
+            this.lv_Artists_Track_List.TabIndex = 4;
+            this.lv_Artists_Track_List.UseCompatibleStateImageBehavior = false;
+            this.lv_Artists_Track_List.View = System.Windows.Forms.View.Details;
+            this.lv_Artists_Track_List.DoubleClick += new System.EventHandler(this.Track_List_DoubleClick);
+            // 
+            // Artists_No
+            // 
+            this.Artists_No.Text = "#";
+            this.Artists_No.Width = 25;
+            // 
+            // Artists_Track
+            // 
+            this.Artists_Track.Text = "Track";
+            this.Artists_Track.Width = 291;
+            // 
+            // Artists_Album
+            // 
+            this.Artists_Album.Text = "Album";
+            this.Artists_Album.Width = 150;
+            // 
+            // Artists_Artist
+            // 
+            this.Artists_Artist.Text = "Artist";
+            this.Artists_Artist.Width = 0;
+            // 
+            // Artists_Length
+            // 
+            this.Artists_Length.Text = "Length";
+            this.Artists_Length.Width = 75;
             // 
             // tp_Playlists
             // 
@@ -280,7 +368,9 @@
             this.btn_Control_Mode_Change.BackColor = System.Drawing.Color.Transparent;
             this.btn_Control_Mode_Change.BackgroundImage = global::TheBesterMusicApp.Properties.Resources.Circle;
             this.btn_Control_Mode_Change.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_Control_Mode_Change.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Control_Mode_Change.FlatAppearance.BorderSize = 0;
+            this.btn_Control_Mode_Change.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btn_Control_Mode_Change.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn_Control_Mode_Change.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Control_Mode_Change.Location = new System.Drawing.Point(810, 62);
@@ -289,6 +379,7 @@
             this.btn_Control_Mode_Change.Size = new System.Drawing.Size(35, 35);
             this.btn_Control_Mode_Change.TabIndex = 9;
             this.btn_Control_Mode_Change.UseVisualStyleBackColor = false;
+            this.btn_Control_Mode_Change.Click += new System.EventHandler(this.btn_Control_Mode_Change_Click);
             // 
             // btn_Control_Next_Button
             // 
@@ -297,14 +388,18 @@
             this.btn_Control_Next_Button.BackColor = System.Drawing.Color.Transparent;
             this.btn_Control_Next_Button.BackgroundImage = global::TheBesterMusicApp.Properties.Resources.Forward;
             this.btn_Control_Next_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_Control_Next_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Control_Next_Button.FlatAppearance.BorderSize = 0;
+            this.btn_Control_Next_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btn_Control_Next_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn_Control_Next_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Control_Next_Button.Location = new System.Drawing.Point(607, 62);
+            this.btn_Control_Next_Button.Location = new System.Drawing.Point(393, 62);
             this.btn_Control_Next_Button.Margin = new System.Windows.Forms.Padding(5);
             this.btn_Control_Next_Button.Name = "btn_Control_Next_Button";
             this.btn_Control_Next_Button.Size = new System.Drawing.Size(35, 35);
             this.btn_Control_Next_Button.TabIndex = 8;
             this.btn_Control_Next_Button.UseVisualStyleBackColor = false;
+            this.btn_Control_Next_Button.Click += new System.EventHandler(this.btn_Control_Next_Button_Click);
             // 
             // btn_Control_Previous_Button
             // 
@@ -313,9 +408,12 @@
             this.btn_Control_Previous_Button.BackColor = System.Drawing.Color.Transparent;
             this.btn_Control_Previous_Button.BackgroundImage = global::TheBesterMusicApp.Properties.Resources.Backward;
             this.btn_Control_Previous_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_Control_Previous_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Control_Previous_Button.FlatAppearance.BorderSize = 0;
+            this.btn_Control_Previous_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btn_Control_Previous_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn_Control_Previous_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Control_Previous_Button.Location = new System.Drawing.Point(517, 62);
+            this.btn_Control_Previous_Button.Location = new System.Drawing.Point(303, 62);
             this.btn_Control_Previous_Button.Margin = new System.Windows.Forms.Padding(5);
             this.btn_Control_Previous_Button.Name = "btn_Control_Previous_Button";
             this.btn_Control_Previous_Button.Size = new System.Drawing.Size(35, 35);
@@ -330,9 +428,12 @@
             this.btn_Control_Play_Button.BackColor = System.Drawing.Color.Transparent;
             this.btn_Control_Play_Button.BackgroundImage = global::TheBesterMusicApp.Properties.Resources.Pause;
             this.btn_Control_Play_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btn_Control_Play_Button.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Control_Play_Button.FlatAppearance.BorderSize = 0;
+            this.btn_Control_Play_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btn_Control_Play_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btn_Control_Play_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Control_Play_Button.Location = new System.Drawing.Point(562, 62);
+            this.btn_Control_Play_Button.Location = new System.Drawing.Point(348, 62);
             this.btn_Control_Play_Button.Margin = new System.Windows.Forms.Padding(5);
             this.btn_Control_Play_Button.Name = "btn_Control_Play_Button";
             this.btn_Control_Play_Button.Size = new System.Drawing.Size(35, 35);
@@ -418,6 +519,7 @@
             this.tp_Tracks.ResumeLayout(false);
             this.tp_Albums.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tp_Artists.ResumeLayout(false);
             this.pnl_Song_Control.ResumeLayout(false);
             this.pnl_Song_Control.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkb_Control_Time_Bar)).EndInit();
@@ -459,6 +561,14 @@
         private System.Windows.Forms.Button btn_Control_Previous_Button;
         private System.Windows.Forms.Button btn_Control_Mode_Change;
         private System.Windows.Forms.Timer tmr_Track_Timer;
+        private System.Windows.Forms.TabPage tp_Artists;
+        private System.Windows.Forms.ListView lv_Artists_Artist_List;
+        private System.Windows.Forms.ListView lv_Artists_Track_List;
+        private System.Windows.Forms.ColumnHeader Artists_No;
+        private System.Windows.Forms.ColumnHeader Artists_Track;
+        private System.Windows.Forms.ColumnHeader Artists_Album;
+        private System.Windows.Forms.ColumnHeader Artists_Artist;
+        private System.Windows.Forms.ColumnHeader Artists_Length;
     }
 }
 
