@@ -216,6 +216,7 @@ namespace TheBesterMusicApp
             if (listview.SelectedItems.Count > 0)
             {
                 PlayTrack((Track)listview.SelectedItems[0].Tag);
+                current_track = Array.IndexOf(track_queue, (Track)listview.SelectedItems[0].Tag);
                 DisplayTrackOnControl((Track)listview.SelectedItems[0].Tag);
             }
         }
@@ -251,6 +252,7 @@ namespace TheBesterMusicApp
         private void btn_Control_Previous_Button_Click(object sender, EventArgs e)
         {
             current_track--;
+            Console.WriteLine(current_track);
             if (current_track < 0)
             {
                 current_track = track_queue.Length - 1;
