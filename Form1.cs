@@ -30,6 +30,7 @@ namespace TheBesterMusicApp
 
         WindowsMediaPlayer music_player = new WindowsMediaPlayer();
         int current_mode = 0; //0 Normal, 1 Shuffle, 2 Repeat;
+        int volume = 100;
 
         public Form1()
         {
@@ -399,6 +400,11 @@ namespace TheBesterMusicApp
             {
                 track_queue = SortTracks(track_queue);
             }
+        }
+
+        private void tkb_Control_Volume_Scroll(object sender, EventArgs e)
+        {
+            music_player.settings.volume = tkb_Control_Volume.Value;
         }
     }
     struct Track

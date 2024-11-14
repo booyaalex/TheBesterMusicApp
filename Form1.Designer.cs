@@ -68,6 +68,7 @@
             this.tkb_Control_Time_Bar = new System.Windows.Forms.TrackBar();
             this.pic_Control_Album_Cover = new System.Windows.Forms.PictureBox();
             this.tmr_Track_Timer = new System.Windows.Forms.Timer(this.components);
+            this.tkb_Control_Volume = new System.Windows.Forms.TrackBar();
             this.tab_Page_Select.SuspendLayout();
             this.tp_Tracks.SuspendLayout();
             this.tp_Albums.SuspendLayout();
@@ -76,6 +77,7 @@
             this.pnl_Song_Control.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkb_Control_Time_Bar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Control_Album_Cover)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tkb_Control_Volume)).BeginInit();
             this.SuspendLayout();
             // 
             // tab_Page_Select
@@ -346,6 +348,7 @@
             this.pnl_Song_Control.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnl_Song_Control.BackColor = System.Drawing.Color.PaleTurquoise;
+            this.pnl_Song_Control.Controls.Add(this.tkb_Control_Volume);
             this.pnl_Song_Control.Controls.Add(this.btn_Control_Mode_Change);
             this.pnl_Song_Control.Controls.Add(this.btn_Control_Next_Button);
             this.pnl_Song_Control.Controls.Add(this.btn_Control_Previous_Button);
@@ -505,6 +508,20 @@
             this.pic_Control_Album_Cover.TabIndex = 0;
             this.pic_Control_Album_Cover.TabStop = false;
             // 
+            // tkb_Control_Volume
+            // 
+            this.tkb_Control_Volume.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tkb_Control_Volume.AutoSize = false;
+            this.tkb_Control_Volume.Location = new System.Drawing.Point(437, 68);
+            this.tkb_Control_Volume.Maximum = 100;
+            this.tkb_Control_Volume.Name = "tkb_Control_Volume";
+            this.tkb_Control_Volume.Size = new System.Drawing.Size(365, 29);
+            this.tkb_Control_Volume.TabIndex = 10;
+            this.tkb_Control_Volume.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.tkb_Control_Volume.Value = 100;
+            this.tkb_Control_Volume.Scroll += new System.EventHandler(this.tkb_Control_Volume_Scroll);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -524,6 +541,7 @@
             this.pnl_Song_Control.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkb_Control_Time_Bar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic_Control_Album_Cover)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tkb_Control_Volume)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -569,6 +587,7 @@
         private System.Windows.Forms.ColumnHeader Artists_Album;
         private System.Windows.Forms.ColumnHeader Artists_Artist;
         private System.Windows.Forms.ColumnHeader Artists_Length;
+        private System.Windows.Forms.TrackBar tkb_Control_Volume;
     }
 }
 
